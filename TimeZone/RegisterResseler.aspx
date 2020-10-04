@@ -1,4 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Register.aspx.cs" Inherits="TimeZone.Register" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RegisterResseler.aspx.cs" Inherits="TimeZone.RegisterResseler" %>
+
+
 
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -48,7 +50,7 @@
                             <a href="Index.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
                         </div>
                         <!-- Main-menu -->
-                         <div class="main-menu d-none d-lg-block">
+                        <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
                                     <li><a href="Index.aspx">Home</a></li>
@@ -118,18 +120,23 @@
 							<h3 class="mb-30">Insira os seus dados</h3>
 							<form runat="server">
 								<div class="mt-10">
-									<asp:TextBox runat="server" placeholder="Primeiro Nome"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome'" class="single-input" ID="fName"></asp:TextBox>
-									<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="fName" Text="*" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+									<asp:TextBox runat="server" placeholder="Nome"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome'" class="single-input" ID="Name"></asp:TextBox>
+									<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="Name" Text="*" ForeColor="#FF3300"></asp:RequiredFieldValidator>
 							   </div>
 								<div class="mt-10">
-									<asp:TextBox runat="server" placeholder="Apelido"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Apelido'" class="single-input" ID="lName"></asp:TextBox>
-									<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="lName" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+									<asp:TextBox runat="server" placeholder="Empresa"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Empresa'" class="single-input" ID="Firm"></asp:TextBox>
+									<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="Firm" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+								</div>
+								<div class="mt-10">
+									<asp:TextBox runat="server"	placeholder="Contribuinte"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contribuinte'" class="single-input" ID="TPNumber"></asp:TextBox>
+									<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="TPNumber" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
 								</div>
 								<div class="mt-10">
 									<asp:TextBox runat="server" placeholder="Email"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="single-input" ID="eMail"></asp:TextBox>
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="single-input" ID="email"></asp:TextBox>
 									<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="email" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
 								   <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="email" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
 								</div>
@@ -147,7 +154,7 @@
 									<span class="text-danger" id="validationSpan" style="visibility: hidden">Os campos assinalados a ( * ) são de preenchimento obrigatório</span>
 								</div>
                                <div class="mt-10">
-								   <asp:Button runat="server" class="genric-btn primary" Text="Criar conta" ID="registerButton" OnClick="registerButton_Click"/>
+								   <asp:Button runat="server" class="genric-btn primary" Text="Criar conta" ID="registerButton"/>
                                </div>
 							</form>
 						</div>
@@ -290,21 +297,22 @@
     <script src="./assets/js/main.js"></script>
         
 	<script type="text/javascript">
-        document.getElementById('registerButton').addEventListener('click', function () {
-
-            var fname = document.getElementById('fName').value;
-            var lName = document.getElementById('lName').value;
-            var email = document.getElementById('email').value;
-            var pass = document.getElementById('passWd').value;
-            if (fname === '' || lName === '' || email === '' || pass === '') {
-                var spanMessage = document.getElementById('validationSpan');
-
-                spanMessage.style.visibility = 'visible';
+		document.getElementById('registerButton').addEventListener('click', function () {
+			
+			var fname = document.getElementById('fName').value;
+			var lName = document.getElementById('lName').value;
+			var email = document.getElementById('email').value;
+			var pass = document.getElementById('passWd').value;
+			if (fname === '' || lName === '' || email === '' || pass === '') {
+				var spanMessage = document.getElementById('validationSpan');
+                
+				spanMessage.style.visibility = 'visible';
             }
 
-        })
+		})
 
     </script>
 
 </body>
 </html>
+

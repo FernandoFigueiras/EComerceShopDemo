@@ -33,37 +33,28 @@
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
+                            <a href="Index.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
                         </div>
                         <!-- Main-menu -->
-                        <div class="main-menu d-none d-lg-block">
+                         <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
                                     <li><a href="Index.aspx">Home</a></li>
                                     <li><a href="Shop.aspx">shop</a></li>
-                                    <li><a href="about.html">about</a></li>
-                                    <li class="hot"><a href="#">Latest</a>
+                                    <li><a href="about.html">Acerca</a></li>
+                                    <li class="hot"><a href="#">Novidades</a>
                                         <ul class="submenu">
-                                            <li><a href="shop.html"> Product list</a></li>
-                                            <li><a href="product_details.html"> Product Details</a></li>
+                                            <li><a href="shop.html"> Lista de produtos</a></li>
+                                            <li><a href="product_details.html"> Detalhes</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="blog.html">Blog</a>
+                                    <li><a href="#">Revendedor</a>
                                         <ul class="submenu">
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
+                                            <li><a href="LoginResseler.aspx">Login Revendedor</a></li>
+                                            <li><a href="Cart.aspx">Carrinho</a></li>
+                                          </ul>
                                     </li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="submenu">
-                                            <li><a href="login.html">Login</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
-                                            <li><a href="elements.html">Element</a></li>
-                                            <li><a href="confirmation.html">Confirmation</a></li>
-                                            <li><a href="checkout.html">Product Checkout</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="contact.html">Contactos</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -112,9 +103,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="login_part_text text-center">
                             <div class="login_part_text_iner">
-                                <h2>New to our Shop?</h2>
-                                <p>There are advances being made in science and technology
-                                    everyday, and a good example of this is the</p>
+                                <h2>Primeira vez na nossa loja?</h2>
+                                <p>Registe-se para usufruir das nossas ofertas</p>
                                 <a href="Register.aspx" class="btn_3">Criar Conta</a> 
                             </div>
                         </div>
@@ -122,8 +112,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="login_part_form">
                             <div class="login_part_form_iner">
-                                <h3>Welcome Back ! <br>
-                                    Please Sign in now</h3>
+                                <h3>Bem vindo de volta ! <br>
+                                    Faça o login</h3>
                                 <form class="row contact_form" novalidate="novalidate" runat="server">
                                     <div class="col-md-12 form-group p_star">
                                         <input type="text" class="form-control" id="name" name="name" value=""
@@ -141,7 +131,7 @@
                                         <button type="submit" value="submit" class="btn_3">
                                             log in
                                         </button>
-                                        <a class="lost_pass" href="#">forget password?</a>
+                                        <a class="lost_pass" href="#">Esqueçeu a sua Password?</a>
                                     </div>
                                 </form>
                             </div>
