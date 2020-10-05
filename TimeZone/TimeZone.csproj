@@ -336,10 +336,13 @@
     <Content Include="Doc\syntax-highlighter\styles\shThemeMidnight.css" />
     <Content Include="Doc\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="Index.aspx" />
+    <Content Include="IndexLogedin.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="RegisterConfirmation.aspx" />
     <Content Include="RegisterResseler.aspx" />
     <Content Include="Shop.aspx" />
+    <Content Include="testing.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -350,12 +353,20 @@
     <Compile Include="Cart.aspx.designer.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Data\Customer.cs" />
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="IndexLogedin.aspx.cs">
+      <DependentUpon>IndexLogedin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IndexLogedin.aspx.designer.cs">
+      <DependentUpon>IndexLogedin.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -372,6 +383,13 @@
     <Compile Include="Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RegisterConfirmation.aspx.cs">
+      <DependentUpon>RegisterConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RegisterConfirmation.aspx.designer.cs">
+      <DependentUpon>RegisterConfirmation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="RegisterResseler.aspx.cs">
       <DependentUpon>RegisterResseler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -379,6 +397,8 @@
     <Compile Include="RegisterResseler.aspx.designer.cs">
       <DependentUpon>RegisterResseler.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\DataBaseAccess.cs" />
+    <Compile Include="Resources\EmailService.cs" />
     <Compile Include="Resources\Encryption.cs" />
     <Compile Include="Shop.aspx.cs">
       <DependentUpon>Shop.aspx</DependentUpon>
@@ -386,6 +406,14 @@
     </Compile>
     <Compile Include="Shop.aspx.designer.cs">
       <DependentUpon>Shop.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\User.cs" />
+    <Compile Include="testing.aspx.cs">
+      <DependentUpon>testing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="testing.aspx.designer.cs">
+      <DependentUpon>testing.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -488,9 +516,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FrontEnd\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

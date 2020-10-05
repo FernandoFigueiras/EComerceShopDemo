@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TimeZone.Resources;
 
 namespace TimeZone
 {
@@ -12,6 +13,42 @@ namespace TimeZone
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        protected void logInButton_Click(object sender, EventArgs e)
+        {
+            var email = userName.Text;
+            var pass = passWd.Text;
+            var encryPass = Encryption.EncryptString(pass);
+
+            var user = DataBaseAccess.LoginUser(email, encryPass);
+
+
+            if (user.Email== null)
+            {
+                divModal.Visible = true;
+                return;
+            }
+            else if (user.IsActive == 0)
+            {
+                divModal2.Visible = true;
+                return;
+            }
+
+            Session["user"] = user;
+            Response.Redirect("IndexLogedin.aspx");
+
+        }
+
+
+        protected void btnClose1_Click1(object sender, EventArgs e)
+        {
+            divModal.Visible = false;
+        }
+
+        protected void btnClose2_Click(object sender, EventArgs e)
+        {
+            divModal2.Visible = false;
         }
     }
 }

@@ -23,8 +23,55 @@
         <link rel="stylesheet" href="assets/css/slick.css">
         <link rel="stylesheet" href="assets/css/nice-select.css">
         <link rel="stylesheet" href="assets/css/style.css">
+   <style>    
+    .modalDialog {
+        position: fixed;
+        font-family: Arial, Helvetica, sans-serif;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.8);
+        z-index: 99999;
+        -webkit-transition: opacity 400ms ease-in;
+        -moz-transition: opacity 400ms ease-in;
+        transition: opacity 400ms ease-in;
+    }
+    .modalDialog > div {
+        width: 400px;
+        position: relative;
+        margin: 10% auto;
+        margin-left:40%;
+        padding: 5px 20px 13px 20px;
+        border-radius: 10px;
+        background: #fff;
+        background: -moz-linear-gradient(#fff, #999);
+        background: -webkit-linear-gradient(#fff, #999);
+        background: -o-linear-gradient(#fff, #999);
+    }
+    .close {
+        background: #606061;
+        color: #FFFFFF;
+        line-height: 25px;
+        position: absolute;
+        right: -12px;
+        text-align: center;
+        top: -10px;
+        width: 24px;
+        text-decoration: none;
+        font-weight: bold;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        -moz-box-shadow: 1px 1px 3px #000;
+        -webkit-box-shadow: 1px 1px 3px #000;
+        box-shadow: 1px 1px 3px #000;
+    }
+    .close:hover { background: #00d9ff; }
+</style>  
 </head>
 <body>
+
     <header>
         <!-- Header Start -->
         <div class="header-area">
@@ -114,23 +161,50 @@
                             <div class="login_part_form_iner">
                                 <h3>Bem vindo de volta ! <br>
                                     Faça o login</h3>
-                                <form class="row contact_form" novalidate="novalidate" runat="server">
+                                <form runat="server">
+                                    
+                                          <div id="divModal" runat="server" class ="modalDialog" visible="false">
+                                             <div>
+                                                  <h2>Login ou Password errados</h2>
+                                                 <p>Caso nao tenha efectuado registo, registe-se agora</p>
+                                                  <br />
+                                                 <asp:Button runat="server" ID="btnClose1" Text="Close" data-toggle="modal"  OnClientClick="return" OnClick="btnClose1_Click1"/>
+                                             </div>
+                                        </div>
+                                 
+
+
+		                            <div id="divModal2" runat="server" class ="modalDialog" visible="false">
+                                        <div>
+                                          <h2>Utilizador nao confirmado</h2>
+                                          <p>Verifique o seu email para concluir registo</p>
+                                          <br />
+                                            <asp:Button runat="server" ID="btnClose2" Text="Close" data-toggle="modal"  OnClientClick="return" OnClick="btnClose2_Click"/>
+			                           </div>
+                                    </div>
+
+
+
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="text" class="form-control" id="name" name="name" value=""
-                                            placeholder="Username">
+                                        <asp:TextBox ID="userName" runat="server" class="form-control" name="name" value=""
+                                            placeholder="Email" TextMode="Email"></asp:TextBox>
+                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator" runat="server" ControlToValidate="userName" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="userName" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
                                     </div>
                                     <div class="col-md-12 form-group p_star">
-                                        <input type="password" class="form-control" id="password" name="password" value=""
-                                            placeholder="Password">
+                                        <asp:TextBox ID="passWd" runat="server" class="form-control" name="password" value=""
+                                            placeholder="Password" TextMode="Password"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="passWd" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
                                     </div>
+                                    <div class="mt-10">
+									    <span class="text-danger" id="validationSpan" style="visibility: hidden">Os campos assinalados a ( * ) são de preenchimento obrigatório</span>
+								   </div>
                                     <div class="col-md-12 form-group">
                                         <div class="creat_account d-flex align-items-center">
                                             <input type="checkbox" id="f-option" name="selector">
                                             <label for="f-option">Remember me</label>
                                         </div>
-                                        <button type="submit" value="submit" class="btn_3">
-                                            log in
-                                        </button>
+                                        <asp:Button runat="server" class="btn_3" Text="log in" ID="logInButton" OnClick="logInButton_Click"/>
                                         <a class="lost_pass" href="#">Esqueçeu a sua Password?</a>
                                     </div>
                                 </form>
@@ -272,6 +346,25 @@
     <!-- Jquery Plugins, main Jquery -->	
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
+    	<script type="text/javascript">
+            document.getElementById('logInButton').addEventListener('click', function () {
+
+                var userName = document.getElementById('userName').value;
+                var Passwd = document.getElementById('passWd').value;
+                if (userName === '' || Passwd === '' ) {
+                    var spanMessage = document.getElementById('validationSpan');
+
+                    spanMessage.style.visibility = 'visible';
+                }
+
+            })
+
+        </script>
+    <script type="text/javascript">
+        document.getElementById("btnClose1").addEventListener("click", function () {
+            document.getElementById("divModal").visibility = "hidden";
+        })
+    </script>
 
 </body>
     
