@@ -283,6 +283,7 @@
     <Content Include="assets\webfonts\fa-solid-900.svg" />
     <Content Include="Cart.aspx" />
     <Content Include="ChangeUserData.aspx" />
+    <Content Include="DeleteUser.aspx" />
     <Content Include="Doc\css\font-awesome.min.css" />
     <Content Include="Doc\css\main.css" />
     <Content Include="Doc\css\normalize.min.css" />
@@ -369,6 +370,13 @@
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\Product.cs" />
     <Compile Include="Data\Stock.cs" />
+    <Compile Include="DeleteUser.aspx.cs">
+      <DependentUpon>DeleteUser.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DeleteUser.aspx.designer.cs">
+      <DependentUpon>DeleteUser.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

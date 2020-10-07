@@ -183,6 +183,45 @@ namespace TimeZone.Resources
         }
 
 
+        public static bool DeleteUser(string email)
+        {
+            var conn = OpenConnection();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "delete_user";
+
+            command.Connection = conn;
+            command.Parameters.AddWithValue("@email", email);
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+            command.Parameters.Add(success);
+
+            try
+            {
+                command.ExecuteNonQuery();
+                int response = Convert.ToInt32(command.Parameters["@success"].Value);
+                if (response == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                return false;
+            }
+
+        }
+
+
         public static void CreateTempTable()
         {
             SqlConnection connTemp = new SqlConnection(ConfigurationManager.ConnectionStrings["clockShopConnectionString"].ConnectionString);
