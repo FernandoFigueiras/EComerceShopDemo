@@ -22,12 +22,11 @@ namespace TimeZone.Resources
 
         public static bool RegisterUser(string fName, string lName, string email, string password, string role, string registerNumb)
         {
-           
-            SqlCommand command = new SqlCommand();
+            var conn = OpenConnection();
+             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "register_new_user";
-            var conn = OpenConnection();
-
+            
             command.Connection = conn;
 
 
@@ -78,6 +77,7 @@ namespace TimeZone.Resources
             {
                 while (reader.Read())
                 {
+                    user.Id = Convert.ToInt32(reader["id"]);
                     user.FirstName = reader["first_name"].ToString();
                     user.LastName = reader["last_name"].ToString();
                     user.Email = reader["email"].ToString();
@@ -138,6 +138,68 @@ namespace TimeZone.Resources
                 return false;
                 
             }
+
+        }
+
+        public static bool ChangeUserData(string firstName, string lastName, string email)
+        {
+            var conn = OpenConnection();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "change_user";
+
+            command.Connection = conn;
+
+            command.Parameters.AddWithValue("@first_name", firstName);
+            command.Parameters.AddWithValue("@last_name", lastName);
+            command.Parameters.AddWithValue("@email", email);
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+            command.Parameters.Add(success);
+
+            try
+            {
+                command.ExecuteNonQuery();
+                int response = Convert.ToInt32(command.Parameters["@success"].Value);
+                if (response == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                return false;
+            }
+
+        }
+
+
+        public static void CreateTempTable()
+        {
+            SqlConnection connTemp = new SqlConnection(ConfigurationManager.ConnectionStrings["clockShopConnectionString"].ConnectionString);
+            connTemp.Open();
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "create_temp_table";
+            command.Connection = connTemp;
+
+            command.ExecuteNonQuery();
+        } 
+
+
+
+
+        public static void UpdateCartTable()
+        {
 
         }
     }

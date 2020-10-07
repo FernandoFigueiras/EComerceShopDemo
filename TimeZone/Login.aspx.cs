@@ -24,6 +24,7 @@ namespace TimeZone
             var user = DataBaseAccess.LoginUser(email, encryPass);
 
 
+
             if (user.Email== null)
             {
                 divModal.Visible = true;
@@ -35,8 +36,21 @@ namespace TimeZone
                 return;
             }
 
+            user.IsLogedIn = true;
+
+
             Session["user"] = user;
-            Response.Redirect("IndexLogedin.aspx");
+
+            if (user.Role == "Customer")
+            {
+                Response.Redirect("IndexLogedin.aspx");
+            }
+            else if (user.Role == "Admin")
+            {
+                Response.Redirect("IndexLogedInAdmin.aspx");
+            }
+
+            
 
         }
 

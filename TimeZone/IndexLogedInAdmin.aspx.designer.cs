@@ -11,7 +11,7 @@ namespace TimeZone
 {
 
 
-    public partial class IndexLogedin
+    public partial class IndexLogedInAdmin
     {
 
         /// <summary>

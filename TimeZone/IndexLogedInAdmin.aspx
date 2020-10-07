@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IndexLogedin.aspx.cs" Inherits="TimeZone.IndexLogedin" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="IndexLogedInAdmin.aspx.cs" Inherits="TimeZone.IndexLogedInAdmin" %>
 
 
 <!doctype html>
@@ -47,51 +47,43 @@
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="IndexLogedin.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
+                            <a href="index.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
                         </div>
                         <!-- Main-menu -->
                         <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
-                                    <li><a href="IndexLogedin.aspx">Home</a></li>
-                                    <li><a href="Shop.aspx">shop</a></li>
-                                    <li><a href="about.html">about</a></li>
-                                    <li class="hot"><a href="#">Latest</a>
-                                        <ul class="submenu">
-                                            <li><a href="shop.html"> Product list</a></li>
-                                            <li><a href="product_details.html"> Product Details</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
-                                </ul>
+                                    <li><a href="IndexLogedInAdmin.aspx">Home</a></li>
+                                    <li><a href="ManageProducts.aspx">Gerir Produtos</a></li>
+                                    <li><a href="ManageResselers.aspx">Gerir Revendedores</a></li>
+                                    <li><a href="ManageOrders.aspx">Gerir Encomendas</a></li>
+                               </ul>
                             </nav>
                         </div>
                         <!-- Header Right -->
-                        <div class="header-right">
+                         <div class="header-right">
                             <ul>
                                 <li>
                                     <div class="nav-search search-switch">
                                         <span class="flaticon-search"></span>
                                     </div>
                                 </li>
+                                <li> </li>
                                 <li><a href="Cart.aspx"><span class="flaticon-shopping-cart"></span></a> </li>
                             </ul>
                         </div>
-                            <div class="main-menu d-none d-lg-block">
+                         <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul>  
                                     <li><asp:Label runat="server" ID="userName"></asp:Label>
                                         <ul class="submenu">
-                                            <li><a href="ChangeUserData.aspx">Editar Dados</a></li>
-                                            <li><a href="IndexLogedin.aspx?logout=true" id="logoutLink">Logout</a></li>
+                                            <li><a href="IndexLogedInAdmin.aspx?logout=true" id="logoutLink">Logout</a></li>
                                           </ul>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
-                   
- 
                     <!-- Mobile Menu -->
                     <div class="col-12">
                         <div class="mobile_menu d-block d-lg-none"></div>
@@ -576,16 +568,9 @@
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
 
-    <script type="text/javascript">
-        document.getElementById("changeUserData").addEventListener("click", function ()
-        {
-
-        })
-
-
-    </script>
 
 
     </body>
 
 </html>
+

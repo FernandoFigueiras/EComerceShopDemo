@@ -282,6 +282,7 @@
     <Content Include="assets\webfonts\fa-regular-400.svg" />
     <Content Include="assets\webfonts\fa-solid-900.svg" />
     <Content Include="Cart.aspx" />
+    <Content Include="ChangeUserData.aspx" />
     <Content Include="Doc\css\font-awesome.min.css" />
     <Content Include="Doc\css\main.css" />
     <Content Include="Doc\css\normalize.min.css" />
@@ -337,7 +338,11 @@
     <Content Include="Doc\syntax-highlighter\styles\shThemeRDark.css" />
     <Content Include="Index.aspx" />
     <Content Include="IndexLogedin.aspx" />
+    <Content Include="IndexLogedInAdmin.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="ManageOrders.aspx" />
+    <Content Include="ManageProducts.aspx" />
+    <Content Include="ManageResselers.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="RegisterConfirmation.aspx" />
     <Content Include="RegisterResseler.aspx" />
@@ -353,7 +358,17 @@
     <Compile Include="Cart.aspx.designer.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ChangeUserData.aspx.cs">
+      <DependentUpon>ChangeUserData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangeUserData.aspx.designer.cs">
+      <DependentUpon>ChangeUserData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Cart.cs" />
     <Compile Include="Data\Customer.cs" />
+    <Compile Include="Data\Product.cs" />
+    <Compile Include="Data\Stock.cs" />
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -368,12 +383,40 @@
     <Compile Include="IndexLogedin.aspx.designer.cs">
       <DependentUpon>IndexLogedin.aspx</DependentUpon>
     </Compile>
+    <Compile Include="IndexLogedInAdmin.aspx.cs">
+      <DependentUpon>IndexLogedInAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="IndexLogedInAdmin.aspx.designer.cs">
+      <DependentUpon>IndexLogedInAdmin.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageOrders.aspx.cs">
+      <DependentUpon>ManageOrders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageOrders.aspx.designer.cs">
+      <DependentUpon>ManageOrders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageProducts.aspx.cs">
+      <DependentUpon>ManageProducts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageProducts.aspx.designer.cs">
+      <DependentUpon>ManageProducts.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageResselers.aspx.cs">
+      <DependentUpon>ManageResselers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageResselers.aspx.designer.cs">
+      <DependentUpon>ManageResselers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">

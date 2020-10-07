@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace TimeZone
 {
-    public partial class IndexLogedin : System.Web.UI.Page
+    public partial class IndexLogedInAdmin : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -15,43 +15,35 @@ namespace TimeZone
 
             var response = Request.QueryString["logout"];
 
-            if (response != null && response == "true")
+            if (response !=null && response == "true" )
             {
                 user.IsLogedIn = false;
                 Response.Redirect("Login.aspx");
             }
 
 
-
+           
 
             if (user == null)
             {
-                Response.Redirect("Index.aspx");
+                Response.Redirect("Login.aspx");
             }
 
-            if (user.IsActive == 0)
+            if (user.Role == "Customer")
             {
-                Response.Redirect("Index.aspx");
+                Response.Redirect("IndexLogedin.aspx");
             }
-
-            if (user.Role == "Admin")
-            {
-                Response.Redirect("IndexLogedInAdmin.aspx");
-            }
-
 
             if (!user.IsLogedIn)
             {
-                Response.Redirect("Index.aspx");
+                Response.Redirect("Login.aspx");
             }
+
 
 
             userName.Text = user.Email;
         }
 
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            
-        }
+
     }
 }
