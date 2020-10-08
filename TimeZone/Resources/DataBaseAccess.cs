@@ -322,5 +322,47 @@ namespace TimeZone.Resources
 
             }
         }
+
+
+
+        public static bool ChangePassword(string email, string oldPassword, string newPassword)
+        {
+            var conn = OpenConnection();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "change_password";
+
+            command.Connection = conn;
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@oldpass", oldPassword);
+            command.Parameters.AddWithValue("@newpass", newPassword);
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+            command.Parameters.Add(success);
+
+            try
+            {
+                command.ExecuteNonQuery();
+                int response = Convert.ToInt32(command.Parameters["@success"].Value);
+                if (response == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                return false;
+            }
+
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChangeUserData.aspx.cs" Inherits="TimeZone.ChangeUserData" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChangePassword.aspx.cs" Inherits="TimeZone.ChangePassword" %>
 
 
 <!doctype html>
@@ -87,7 +87,7 @@
     <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
-       <div class="header-area">
+         <div class="header-area">
             <div class="main-header header-sticky">
                 <div class="container-fluid">
                     <div class="menu-wrapper">
@@ -185,7 +185,7 @@
                                 <div id="divModal" runat="server" class="modalDialog" visible="false">
                                     <div>
                                         <h2>Sucesso</h2>
-                                        <p>Dados alterados</p>
+                                        <p>Password alterada com sucesso</p>
                                         <br />
                                         <asp:Button runat="server" ID="btnClose" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="btnClose_Click" />
                                     </div>
@@ -195,7 +195,7 @@
                                 <div id="divModal2" runat="server" class="modalDialog" visible="false">
                                     <div>
                                         <h2>Erro</h2>
-                                        <p>Nao foi possivel alterar os seus dados</p>
+                                        <p>Nao foi possivel alterar a sua password</p>
                                         <br />
                                         <asp:Button runat="server" ID="btnClose2" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="btnClose2_Click" />
                                     </div>
@@ -203,20 +203,26 @@
 
 
                                 <div class="mt-10">
-                                    <asp:TextBox runat="server" placeholder="Primeiro Nome"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome'" class="single-input" ID="fName" ></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="fName" Text="*" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                                    <asp:TextBox runat="server" placeholder="Password actual"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password actual'" class="single-input" ID="oldPass" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="oldPass" Text="*" ForeColor="#FF3300"></asp:RequiredFieldValidator>
                                 </div>
                                 <div class="mt-10">
-                                    <asp:TextBox runat="server" placeholder="Apelido"
-                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Apelido'" class="single-input" ID="lName" ></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="lName" Text="*" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                    <asp:TextBox runat="server" placeholder="Nova Password"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nova Password'" class="single-input" ID="newPass" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="newPass" Text="*" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                </div>
+                                <div class="mt-10">
+                                    <asp:TextBox runat="server" placeholder="Confirme Nova Password"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Confirme Nova Password'" class="single-input" ID="newPassConfirm" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="newPassConfirm" Text="*" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                    <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Password nao confere" ControlToCompare="newPass" ControlToValidate="newPassConfirm" ForeColor="#FF3300"></asp:CompareValidator>
                                 </div>
                                 <div class="mt-10">
                                     <span class="text-danger" id="validationSpan" style="visibility: hidden">Os campos assinalados a ( * ) são de preenchimento obrigatório</span>
                                 </div>
                                 <div class="mt-10">
-                                    <asp:Button runat="server" class="genric-btn primary" Text="Alterar" ID="btnChange" OnClick="btnChange_Click"/>
+                                    <asp:Button runat="server" class="genric-btn primary" Text="Alterar" ID="btnChangePass" OnClick="btnChangePass_Click"/>
                                 </div>
                             </form>
                         </div>
@@ -363,11 +369,12 @@
     <script src="./assets/js/main.js"></script>
 
     <script type="text/javascript">
-        document.getElementById('btnChange').addEventListener('click', function () {
+        document.getElementById('btnChangePass').addEventListener('click', function () {
 
-            var fname = document.getElementById('fName').value;
-            var lName = document.getElementById('lName').value;
-            if (fname === '' || lName === ''  ){
+            var oldP = document.getElementById('oldPass').value;
+            var newP = document.getElementById('newPass').value;
+            var newPConf = document.getElementById('newPassConfirm').value;
+            if (oldP === '' || newP === '' || newPConf ==='' ){
                 var spanMessage = document.getElementById('validationSpan');
 
                 spanMessage.style.visibility = 'visible';
@@ -381,4 +388,5 @@
 
 </body>
 </html>
+
 

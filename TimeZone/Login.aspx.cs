@@ -41,7 +41,7 @@ namespace TimeZone
 
             Session["user"] = user;
 
-            if (user.Role == "Customer")
+            if (user.Role == "Customer" || user.Role=="Resseler")
             {
                 Response.Redirect("IndexLogedin.aspx");
             }

@@ -282,6 +282,7 @@
     <Content Include="assets\webfonts\fa-regular-400.svg" />
     <Content Include="assets\webfonts\fa-solid-900.svg" />
     <Content Include="Cart.aspx" />
+    <Content Include="ChangePassword.aspx" />
     <Content Include="ChangeUserData.aspx" />
     <Content Include="DeleteUser.aspx" />
     <Content Include="Doc\css\font-awesome.min.css" />
@@ -360,6 +361,13 @@
     </Compile>
     <Compile Include="Cart.aspx.designer.cs">
       <DependentUpon>Cart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ChangePassword.aspx.designer.cs">
+      <DependentUpon>ChangePassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="ChangeUserData.aspx.cs">
       <DependentUpon>ChangeUserData.aspx</DependentUpon>

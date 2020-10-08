@@ -8,13 +8,10 @@ using TimeZone.Resources;
 
 namespace TimeZone
 {
-    public partial class ChangeUserData : System.Web.UI.Page
+    public partial class ChangePassword : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-
-            
             User user = (User)Session["user"];
 
             if (user == null)
@@ -39,32 +36,28 @@ namespace TimeZone
             }
             userName.Text = user.Email;
 
-            if (!this.IsPostBack)
-            {
-                var fN = user.FirstName;
-                var lN = user.LastName;
+           
 
-
-                fName.Text = fN;
-                lName.Text = lN;
-            }
-            
         }
 
-
-        protected void btnChange_Click(object sender, EventArgs e)
+        protected void btnChangePass_Click(object sender, EventArgs e)
         {
-            
-
-            var fN = fName.Text;
-            var lN = lName.Text;
 
             User user = (User)Session["user"];
 
-            user.FirstName = fN;
-            user.LastName = lN;
+            if (user == null)
+            {
+                Response.Redirect("Index.aspx");
+            }
 
-            var response = DataBaseAccess.ChangeUserData(fN, lN, user.Email);
+            var oldP = oldPass.Text;
+            var newP = newPass.Text;
+
+            var oldPEnc = Encryption.EncryptString(oldP);
+            var newPEnc = Encryption.EncryptString(newP);
+
+
+            var response = DataBaseAccess.ChangePassword(user.Email, oldPEnc, newPEnc);
 
             if (response)
             {
@@ -74,7 +67,6 @@ namespace TimeZone
             {
                 divModal2.Visible = true;
             }
-
         }
 
         protected void btnClose_Click(object sender, EventArgs e)
@@ -88,7 +80,5 @@ namespace TimeZone
             divModal.Visible = false;
             Response.Redirect("IndexLogedin.aspx");
         }
-
-
     }
 }

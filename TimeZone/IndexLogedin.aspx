@@ -83,6 +83,7 @@
                                     <li><asp:Label runat="server" ID="userName"></asp:Label>
                                         <ul class="submenu">
                                             <li><a href="ChangeUserData.aspx">Editar Dados</a></li>
+                                            <li><a href="ChangePassword.aspx">Alterar Password</a></li>
                                             <li><a href="IndexLogedin.aspx?logout=true">Logout</a></li>
                                             <li><a href="DeleteUser.aspx">Delete User</a></li>
                                           </ul>
