@@ -24,8 +24,10 @@
         public int IsActive { get; set; }
 
 
-
         public bool IsLogedIn { get; set; }
+
+
+        public bool IsResseler { get; set; }
 
     }
 }

@@ -22,8 +22,6 @@ namespace TimeZone
             }
 
 
-
-
             if (user == null)
             {
                 Response.Redirect("Index.aspx");

@@ -19,7 +19,7 @@ namespace TimeZone.Resources
 
 
             message.Body =$"<h1>Confirmação de email</h1>" +
-                      $"para completar o registo, " +
+                      $"Obrigado por se inscrever na nossa loja, para completar o registo, " +
                       $"clique neste link:</br></br><a href = \"{"https://localhost:44357/RegisterConfirmation.aspx?email=" + email + "&id="+ registerNumber}\">Confirmar email</a>";
 
 
@@ -42,6 +42,7 @@ namespace TimeZone.Resources
 
 
         }
+
 
     }
 }

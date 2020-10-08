@@ -74,34 +74,33 @@
 
     <header>
         <!-- Header Start -->
-        <div class="header-area">
+       <div class="header-area">
             <div class="main-header header-sticky">
                 <div class="container-fluid">
                     <div class="menu-wrapper">
                         <!-- Logo -->
                         <div class="logo">
-                            <a href="Index.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
+                            <a href="index.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
                         </div>
                         <!-- Main-menu -->
-                         <div class="main-menu d-none d-lg-block">
+                        <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
                                     <li><a href="Index.aspx">Home</a></li>
                                     <li><a href="Shop.aspx">shop</a></li>
-                                    <li><a href="about.html">Acerca</a></li>
-                                    <li class="hot"><a href="#">Novidades</a>
+                                    <li><a href="about.html">about</a></li>
+                                    <li class="hot"><a href="#">Latest</a>
                                         <ul class="submenu">
-                                            <li><a href="shop.html"> Lista de produtos</a></li>
-                                            <li><a href="product_details.html"> Detalhes</a></li>
+                                            <li><a href="shop.html"> Product list</a></li>
+                                            <li><a href="product_details.html"> Product Details</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="#">Revendedor</a>
                                         <ul class="submenu">
-                                            <li><a href="LoginResseler.aspx">Login Revendedor</a></li>
-                                            <li><a href="Cart.aspx">Carrinho</a></li>
+                                            <li><a href="RegisterResseler.aspx">Registar</a></li>
                                           </ul>
                                     </li>
-                                    <li><a href="contact.html">Contactos</a></li>
+                                    <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </nav>
                         </div>

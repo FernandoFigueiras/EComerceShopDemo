@@ -25,6 +25,53 @@
 	<link rel="stylesheet" href="assets/css/slick.css">
 	<link rel="stylesheet" href="assets/css/nice-select.css">
 	<link rel="stylesheet" href="assets/css/style.css">
+
+	   <style>    
+    .modalDialog {
+        position: fixed;
+        font-family: Arial, Helvetica, sans-serif;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.8);
+        z-index: 99999;
+        -webkit-transition: opacity 400ms ease-in;
+        -moz-transition: opacity 400ms ease-in;
+        transition: opacity 400ms ease-in;
+    }
+    .modalDialog > div {
+        width: 400px;
+        position: relative;
+        margin: 10% auto;
+        margin-left:40%;
+        padding: 5px 20px 13px 20px;
+        border-radius: 10px;
+        background: #fff;
+        background: -moz-linear-gradient(#fff, #999);
+        background: -webkit-linear-gradient(#fff, #999);
+        background: -o-linear-gradient(#fff, #999);
+    }
+    .close {
+        background: #606061;
+        color: #FFFFFF;
+        line-height: 25px;
+        position: absolute;
+        right: -12px;
+        text-align: center;
+        top: -10px;
+        width: 24px;
+        text-decoration: none;
+        font-weight: bold;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        -moz-box-shadow: 1px 1px 3px #000;
+        -webkit-box-shadow: 1px 1px 3px #000;
+        box-shadow: 1px 1px 3px #000;
+    }
+    .close:hover { background: #00d9ff; }
+</style> 
 </head>
 <body>
 	<!-- Preloader Start -->
@@ -102,7 +149,7 @@
 					<div class="row">
 						<div class="col-xl-12">
 							<div class="hero-cap text-center">
-								<h2>Criar conta</h2>
+								<h2>Criar conta Revendedor</h2>
 							</div>
 						</div>
 					</div>
@@ -119,46 +166,59 @@
 						<div class="col-lg-8 col-md-8">
 							<h3 class="mb-30">Insira os seus dados</h3>
 							<form runat="server">
+
+								<div id="divModal" runat="server" class="modalDialog" visible="false">
+                                    <div>
+                                        <h2>Utilizador existente</h2>
+                                        <p>Ja existe um utilizador com esse email</p>
+                                        <br />
+                                        <asp:Button runat="server" ID="btnClose" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="btnClose_Click"  />
+                                    </div>
+                                </div>
+
+                                  <div id="divModal2" runat="server" class="modalDialog" visible="false">
+                                    <div>
+                                        <h2>Sucesso</h2>
+                                        <p>Utilizador inserido com sucesso, foi enviado um email para terminar o registo</p>
+                                        <br />
+                                        <asp:Button runat="server" ID="btnClose2" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="btnClose2_Click" />
+                                    </div>
+                                </div>
+
 								<div class="mt-10">
-									<asp:TextBox runat="server" placeholder="Nome"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome'" class="single-input" ID="Name"></asp:TextBox>
-									<asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="Name" Text="*" ForeColor="#FF3300"></asp:RequiredFieldValidator>
-							   </div>
-								<div class="mt-10">
-									<asp:TextBox runat="server" placeholder="Empresa"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Empresa'" class="single-input" ID="Firm"></asp:TextBox>
-									<asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="Firm" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
-								</div>
-								<div class="mt-10">
-									<asp:TextBox runat="server"	placeholder="Contribuinte"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Contribuinte'" class="single-input" ID="TPNumber"></asp:TextBox>
-									<asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="TPNumber" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
-								</div>
-								<div class="mt-10">
-									<asp:TextBox runat="server" placeholder="Email"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="single-input" ID="email"></asp:TextBox>
-									<asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="email" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
-								   <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="email" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
-								</div>
-								<div class="mt-10">
-									<asp:TextBox runat="server" placeholder="Password"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" class="single-input" ID="passWd"></asp:TextBox>
-									<asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="passWd" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
-								</div>
-								<div class="mt-10">
-									<asp:TextBox runat="server" placeholder="Confirmar Password" onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Address'"  class="single-input" ID="confPassWd"></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="Primeiro Nome"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nome'" class="single-input" ID="fName"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="fName" Text="*" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+                                </div>
+                                <div class="mt-10">
+                                    <asp:TextBox runat="server" placeholder="Apelido"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Apelido'" class="single-input" ID="lName"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="lName" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                </div>
+                                <div class="mt-10">
+                                    <asp:TextBox runat="server" placeholder="Email"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="single-input" ID="eMail" TextMode="Email"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="eMail" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="eMail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
+                                </div>
+                                <div class="mt-10">
+                                    <asp:TextBox runat="server" placeholder="Password"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" class="single-input" ID="passWd" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="passWd" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                </div>
+                                <div class="mt-10">
+                                    <asp:TextBox runat="server" placeholder="Confirmar Password" onfocus="this.placeholder = ''"
+                                        onblur="this.placeholder = 'Address'" class="single-input" ID="confPassWd" TextMode="Password"></asp:TextBox>
                                     <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="*" ControlToCompare="passWd" ControlToValidate="confPassWd" ForeColor="#FF3300"></asp:CompareValidator>
-								</div>
-								<div class="mt-10">
-									<span class="text-danger" id="validationSpan" style="visibility: hidden">Os campos assinalados a ( * ) são de preenchimento obrigatório</span>
-								</div>
-                               <div class="mt-10">
-								   <asp:Button runat="server" class="genric-btn primary" Text="Criar conta" ID="registerButton"/>
-                               </div>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="text-danger" id="validationSpan" style="visibility: hidden">Os campos assinalados a ( * ) são de preenchimento obrigatório</span>
+                                </div>
+                                <div class="mt-10">
+                                    <asp:Button runat="server" class="genric-btn primary" Text="Criar conta" ID="registerButton" OnClick="registerButton_Click" />
+                                </div>
 							</form>
 						</div>
-                        
 					</div>
 				</div>
 			</div>
@@ -297,19 +357,19 @@
     <script src="./assets/js/main.js"></script>
         
 	<script type="text/javascript">
-		document.getElementById('registerButton').addEventListener('click', function () {
-			
-			var fname = document.getElementById('fName').value;
-			var lName = document.getElementById('lName').value;
-			var email = document.getElementById('email').value;
-			var pass = document.getElementById('passWd').value;
-			if (fname === '' || lName === '' || email === '' || pass === '') {
-				var spanMessage = document.getElementById('validationSpan');
-                
-				spanMessage.style.visibility = 'visible';
-            }
+        document.getElementById('registerButton').addEventListener('click', function () {
 
-		})
+            var fname = document.getElementById('fName').value;
+            var lName = document.getElementById('lName').value;
+            var email = document.getElementById('eMail').value;
+            var pass = document.getElementById('passWd').value;
+            if (fname === '' || lName === '' || email === '' || pass === '') {
+
+                var spanMessage = document.getElementById('validationSpan');
+
+                spanMessage.style.visibility = 'visible';
+            }
+        })
 
     </script>
 

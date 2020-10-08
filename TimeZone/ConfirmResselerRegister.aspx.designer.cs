@@ -11,17 +11,17 @@ namespace TimeZone
 {
 
 
-    public partial class RegisterResseler
+    public partial class ConfirmResselerRegister
     {
 
         /// <summary>
-        /// divModal control.
+        /// divModalNoSuccess control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divModal;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divModalNoSuccess;
 
         /// <summary>
         /// btnClose control.
@@ -33,22 +33,22 @@ namespace TimeZone
         protected global::System.Web.UI.WebControls.Button btnClose;
 
         /// <summary>
-        /// divModal2 control.
+        /// divModal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divModal2;
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divModal;
 
         /// <summary>
-        /// btnClose2 control.
+        /// Button1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClose2;
+        protected global::System.Web.UI.WebControls.Button Button1;
 
         /// <summary>
         /// fName control.

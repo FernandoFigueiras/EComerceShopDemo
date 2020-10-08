@@ -206,8 +206,8 @@
                                 <div class="mt-10">
                                     <asp:TextBox runat="server" placeholder="Email"
                                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="single-input" ID="eMail" TextMode="Email"></asp:TextBox>
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="email" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="email" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="eMail" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="eMail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
                                 </div>
                                 <div class="mt-10">
                                     <asp:TextBox runat="server" placeholder="Password"
@@ -371,17 +371,17 @@
 
     <script type="text/javascript">
         document.getElementById('registerButton').addEventListener('click', function () {
-
+            
             var fname = document.getElementById('fName').value;
             var lName = document.getElementById('lName').value;
-            var email = document.getElementById('email').value;
+            var email = document.getElementById('eMail').value;
             var pass = document.getElementById('passWd').value;
             if (fname === '' || lName === '' || email === '' || pass === '') {
+                
                 var spanMessage = document.getElementById('validationSpan');
 
                 spanMessage.style.visibility = 'visible';
             }
-
         })
 
     </script>

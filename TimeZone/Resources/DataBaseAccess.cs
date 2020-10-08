@@ -12,7 +12,7 @@ namespace TimeZone.Resources
     public static class DataBaseAccess
     {
 
-        private static SqlConnection OpenConnection()
+        public static SqlConnection OpenConnection()
         {
             SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["clockShopConnectionString"].ConnectionString);
             conn.Open();
@@ -240,6 +240,87 @@ namespace TimeZone.Resources
         public static void UpdateCartTable()
         {
 
+        }
+
+
+
+        public static List<User>  GetActiveResselers()
+        {
+            string query = $"SELECT * FROM shop_user WHERE user_role = 'Resseler' AND is_resseler = 1";
+
+            var conn = OpenConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            var list = new List<User>();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            
+
+            try
+            {
+                while (reader.Read())
+                {
+                    var user = new User();
+
+                    user.Id = Convert.ToInt32(reader["id"]);
+                    user.FirstName = reader["first_name"].ToString();
+                    user.LastName = reader["last_name"].ToString();
+                    user.Email = reader["email"].ToString();
+                    user.Role = reader["user_role"].ToString();
+                    user.IsActive = Convert.ToInt32(reader["is_active"]);
+
+
+                    list.Add(user);
+                }
+
+                return list;
+            }
+            finally
+            {
+                reader.Close();
+
+            }
+        }
+
+
+        public static List<User> GetInactiveResselers()
+        {
+            string query = $"SELECT * FROM shop_user WHERE user_role = 'Resseler' AND is_resseler = 0";
+
+            var conn = OpenConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            var list = new List<User>();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+
+
+            try
+            {
+                while (reader.Read())
+                {
+                    var user = new User();
+
+                    user.Id = Convert.ToInt32(reader["id"]);
+                    user.FirstName = reader["first_name"].ToString();
+                    user.LastName = reader["last_name"].ToString();
+                    user.Email = reader["email"].ToString();
+                    user.Role = reader["user_role"].ToString();
+                    user.IsActive = Convert.ToInt32(reader["is_active"]);
+
+
+                    list.Add(user);
+                }
+
+                return list;
+            }
+            finally
+            {
+                reader.Close();
+
+            }
         }
     }
 }

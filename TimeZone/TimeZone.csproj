@@ -337,6 +337,8 @@
     <Content Include="Doc\syntax-highlighter\styles\shThemeMDUltra.css" />
     <Content Include="Doc\syntax-highlighter\styles\shThemeMidnight.css" />
     <Content Include="Doc\syntax-highlighter\styles\shThemeRDark.css" />
+    <Content Include="Images\grunge-no-icon.png" />
+    <Content Include="Images\grunge-yes-no-icon-2.png" />
     <Content Include="Index.aspx" />
     <Content Include="IndexLogedin.aspx" />
     <Content Include="IndexLogedInAdmin.aspx" />

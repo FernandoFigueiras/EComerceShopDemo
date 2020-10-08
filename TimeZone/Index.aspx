@@ -64,8 +64,7 @@
                                     </li>
                                     <li><a href="#">Revendedor</a>
                                         <ul class="submenu">
-                                            <li><a href="LoginResseler.aspx">Login Revendedor</a></li>
-                                            <li><a href="Cart.aspx">Carrinho</a></li>
+                                            <li><a href="RegisterResseler.aspx">Registar</a></li>
                                           </ul>
                                     </li>
                                     <li><a href="contact.html">Contact</a></li>

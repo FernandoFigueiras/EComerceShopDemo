@@ -15,18 +15,18 @@ namespace TimeZone
 
             var response = Request.QueryString["logout"];
 
-            if (response !=null && response == "true" )
+            if (response != null && response == "true")
             {
                 user.IsLogedIn = false;
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Index.aspx");
             }
 
 
-           
+
 
             if (user == null)
             {
-                Response.Redirect("Login.aspx");
+                Response.Redirect("Index.aspx");
             }
 
             if (user.Role == "Customer")
