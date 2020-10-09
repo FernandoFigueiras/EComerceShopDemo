@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using TimeZone.Data;
 
 namespace TimeZone.Resources
 {
@@ -471,6 +472,82 @@ namespace TimeZone.Resources
                 }
 
                 return user;
+            }
+            finally
+            {
+                reader.Close();
+
+            }
+        }
+
+
+
+        public static bool AddProduct(string description, decimal price, int stock)
+        {
+            var conn = OpenConnection();
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "add_product";
+
+            command.Connection = conn;
+
+
+            command.Parameters.AddWithValue("@prod_desc", description);
+            command.Parameters.AddWithValue("@prod_price", price);
+            command.Parameters.AddWithValue("@prod_stock", stock);
+
+
+
+
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+
+            command.Parameters.Add(success);
+
+            command.ExecuteNonQuery();
+            int response = Convert.ToInt32(command.Parameters["@success"].Value);
+            conn.Close();
+
+            if (response == 0)
+            {
+                return false;
+            }
+            return true;
+        }
+
+
+
+        public static List<Product> GetProducts()
+        {
+            string query = $"SELECT * FROM products WHERE stock >0";
+
+            var conn = OpenConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            var list = new List<Product>();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+
+
+            try
+            {
+                while (reader.Read())
+                {
+                    var product = new Product();
+
+                    product.Id = Convert.ToInt32(reader["id"]);
+                    product.Description = reader["product_description"].ToString();
+                    product.Price = Convert.ToDecimal(reader["product_price"]);
+                    product.Stock = Convert.ToInt32(reader["stock"]);
+
+                    list.Add(product);
+                }
+
+                return list;
             }
             finally
             {

@@ -242,13 +242,6 @@
                     <td>
                       <h5><%# Eval("Email") %></h5>
                     </td>
-                   <%--    <td>
-                           <asp:ImageButton runat="server" ID="btnYes" ImageUrl="~/Images/grunge-yes-no-icon-2.png"/>
-
-                    </td>
-                    <td>
-                        <asp:ImageButton runat="server" ID="btnNo" ImageUrl="~/Images/grunge-no-icon.png"/>
-                    </td>--%>
                   </tr>
 
                   
