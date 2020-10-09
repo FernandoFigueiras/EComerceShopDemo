@@ -85,8 +85,7 @@ namespace TimeZone
 
         protected void btnClose2_Click(object sender, EventArgs e)
         {
-            divModal.Visible = false;
-            Response.Redirect("IndexLogedin.aspx");
+            divModal2.Visible = false;
         }
 
 

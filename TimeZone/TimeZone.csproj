@@ -284,6 +284,7 @@
     <Content Include="Cart.aspx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="ChangeUserData.aspx" />
+    <Content Include="ConfirmRecoverPassword.aspx" />
     <Content Include="DeleteUser.aspx" />
     <Content Include="Doc\css\font-awesome.min.css" />
     <Content Include="Doc\css\main.css" />
@@ -347,6 +348,7 @@
     <Content Include="ManageOrders.aspx" />
     <Content Include="ManageProducts.aspx" />
     <Content Include="ManageResselers.aspx" />
+    <Content Include="RecoverPassword.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="RegisterConfirmation.aspx" />
     <Content Include="RegisterResseler.aspx" />
@@ -375,6 +377,13 @@
     </Compile>
     <Compile Include="ChangeUserData.aspx.designer.cs">
       <DependentUpon>ChangeUserData.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ConfirmRecoverPassword.aspx.cs">
+      <DependentUpon>ConfirmRecoverPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ConfirmRecoverPassword.aspx.designer.cs">
+      <DependentUpon>ConfirmRecoverPassword.aspx</DependentUpon>
     </Compile>
     <Compile Include="Data\Cart.cs" />
     <Compile Include="Data\Customer.cs" />
@@ -437,6 +446,13 @@
       <DependentUpon>ManageResselers.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecoverPassword.aspx.cs">
+      <DependentUpon>RecoverPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecoverPassword.aspx.designer.cs">
+      <DependentUpon>RecoverPassword.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

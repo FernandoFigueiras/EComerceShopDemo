@@ -364,5 +364,119 @@ namespace TimeZone.Resources
             }
 
         }
+
+
+
+
+        public static bool RecoverPassword(string email)
+        {
+            var conn = OpenConnection();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "recover_password";
+
+            command.Connection = conn;
+            command.Parameters.AddWithValue("@email", email);
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+            command.Parameters.Add(success);
+
+            try
+            {
+                command.ExecuteNonQuery();
+                int response = Convert.ToInt32(command.Parameters["@success"].Value);
+                if (response == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+
+
+        public static bool EndRecoverPassword(string email, string password)
+        {
+            var conn = OpenConnection();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "end_recover_password";
+
+            command.Connection = conn;
+            command.Parameters.AddWithValue("@email", email);
+            command.Parameters.AddWithValue("@password", password);
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+            command.Parameters.Add(success);
+
+            try
+            {
+                command.ExecuteNonQuery();
+                int response = Convert.ToInt32(command.Parameters["@success"].Value);
+                if (response == 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                conn.Close();
+                return false;
+            }
+        }
+
+
+        public static User GtUserByEmail(string email)
+        {
+            string query = $"SELECT * FROM shop_user WHERE email = '{email}' AND is_active = 1;";
+
+            var conn = OpenConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            var user = new User();
+
+            try
+            {
+                while (reader.Read())
+                {
+                    user.Id = Convert.ToInt32(reader["id"]);
+                    user.FirstName = reader["first_name"].ToString();
+                    user.LastName = reader["last_name"].ToString();
+                    user.Email = reader["email"].ToString();
+                    user.Role = reader["user_role"].ToString();
+                    user.IsActive = Convert.ToInt32(reader["is_active"]);
+                }
+
+                return user;
+            }
+            finally
+            {
+                reader.Close();
+
+            }
+        }
     }
 }

@@ -1,7 +1,8 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="TimeZone.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecoverPassword.aspx.cs" Inherits="TimeZone.RecoverPassword" %>
+
 
 <!doctype html>
-<html lang="zxx">
+<html class="no-js" lang="zxx">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -12,17 +13,17 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
 
     <!-- CSS here -->
-        <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-        <link rel="stylesheet" href="assets/css/flaticon.css">
-        <link rel="stylesheet" href="assets/css/slicknav.css">
-        <link rel="stylesheet" href="assets/css/animate.min.css">
-        <link rel="stylesheet" href="assets/css/magnific-popup.css">
-        <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-        <link rel="stylesheet" href="assets/css/themify-icons.css">
-        <link rel="stylesheet" href="assets/css/slick.css">
-        <link rel="stylesheet" href="assets/css/nice-select.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="assets/css/slicknav.css">
+    <link rel="stylesheet" href="assets/css/animate.min.css">
+    <link rel="stylesheet" href="assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/themify-icons.css">
+    <link rel="stylesheet" href="assets/css/slick.css">
+    <link rel="stylesheet" href="assets/css/nice-select.css">
+    <link rel="stylesheet" href="assets/css/style.css">
    <style>    
     .modalDialog {
         position: fixed;
@@ -68,13 +69,25 @@
         box-shadow: 1px 1px 3px #000;
     }
     .close:hover { background: #00d9ff; }
-</style>  
+</style> 
+
 </head>
 <body>
-
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
     <header>
         <!-- Header Start -->
-       <div class="header-area">
+        <div class="header-area">
             <div class="main-header header-sticky">
                 <div class="container-fluid">
                     <div class="menu-wrapper">
@@ -124,6 +137,15 @@
                 </div>
             </div>
         </div>
+                   
+ 
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- Header End -->
     </header>
     <main>
@@ -134,7 +156,7 @@
                     <div class="row">
                         <div class="col-xl-12">
                             <div class="hero-cap text-center">
-                                <h2>Login</h2>
+                                <h2>Recuperar password</h2>
                             </div>
                         </div>
                     </div>
@@ -142,78 +164,63 @@
             </div>
         </div>
         <!-- Hero Area End-->
-        <!--================login_part Area =================-->
-        <section class="login_part section_padding ">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="login_part_text text-center">
-                            <div class="login_part_text_iner">
-                                <h2>Primeira vez na nossa loja?</h2>
-                                <p>Registe-se para usufruir das nossas ofertas</p>
-                                <a href="Register.aspx" class="btn_3">Criar Conta</a> 
-                            </div>
+
+        <!--Modal start-->
+
+
+        <!--Modal End-->
+
+
+        <!-- Start Align Area -->
+        <div class="whole-wrap">
+            <div class="container box_1170">
+                <div class="section-top-border">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-8">
+                            <h3 class="mb-30">Esqueceu a sua password? Preencha o seu email</h3>
+                            <form runat="server">
+
+
+                                <div id="divModal" runat="server" class="modalDialog" visible="false">
+                                    <div>
+                                        <h2>Sucesso</h2>
+                                        <p>Foi enviado um email com as instrucoes de alteracao</p>
+                                        <br />
+                                        <asp:Button runat="server" ID="btnClose" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="btnClose_Click" />
+                                    </div>
+                                </div>
+
+
+                                <div id="divModal2" runat="server" class="modalDialog" visible="false">
+                                    <div>
+                                        <h2>Erro</h2>
+                                        <p>Esse email nao esta registado</p>
+                                        <br />
+                                        <asp:Button runat="server" ID="btnClose2" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="btnClose2_Click"/>
+                                    </div>
+                                </div>
+
+
+                                 <div class="mt-10">
+                                    <asp:TextBox runat="server" placeholder="Email"
+                                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" class="single-input" ID="eMail" TextMode="Email"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="eMail" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="eMail" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
+                                </div>
+                                <div class="mt-10">
+                                    <span class="text-danger" id="validationSpan" style="visibility: hidden">Os campos assinalados a ( * ) são de preenchimento obrigatório</span>
+                                </div>
+                                <div class="mt-10">
+                                    <asp:Button runat="server" class="genric-btn primary" Text="Alterar" ID="btnSend" OnClick="btnSend_Click"/>
+                                </div>
+                            </form>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="login_part_form">
-                            <div class="login_part_form_iner">
-                                <h3>Bem vindo de volta ! <br>
-                                    Faça o login</h3>
-                                <form runat="server">
-                                    
-                                          <div id="divModal" runat="server" class ="modalDialog" visible="false">
-                                             <div>
-                                                  <h2>Login ou Password errados</h2>
-                                                 <p>Caso nao tenha efectuado registo, registe-se agora</p>
-                                                  <br />
-                                                 <asp:Button runat="server" ID="btnClose1" Text="Close" data-toggle="modal"  OnClientClick="return" OnClick="btnClose1_Click1"/>
-                                             </div>
-                                        </div>
-                                 
 
-
-		                            <div id="divModal2" runat="server" class ="modalDialog" visible="false">
-                                        <div>
-                                          <h2>Utilizador nao confirmado</h2>
-                                          <p>Verifique o seu email para concluir registo</p>
-                                          <br />
-                                            <asp:Button runat="server" ID="btnClose2" Text="Close" data-toggle="modal"  OnClientClick="return" OnClick="btnClose2_Click"/>
-			                           </div>
-                                    </div>
-
-
-
-                                    <div class="col-md-12 form-group p_star">
-                                        <asp:TextBox ID="userName" runat="server" class="form-control" name="name" value=""
-                                            placeholder="Email" TextMode="Email"></asp:TextBox>
-                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator" runat="server" ControlToValidate="userName" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
-                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="userName" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" ForeColor="#FF3300">introduza um email valido</asp:RegularExpressionValidator>
-                                    </div>
-                                    <div class="col-md-12 form-group p_star">
-                                        <asp:TextBox ID="passWd" runat="server" class="form-control" name="password" value=""
-                                            placeholder="Password" TextMode="Password"></asp:TextBox>
-                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="passWd" ForeColor="#FF3300">*</asp:RequiredFieldValidator>
-                                    </div>
-                                    <div class="mt-10">
-									    <span class="text-danger" id="validationSpan" style="visibility: hidden">Os campos assinalados a ( * ) são de preenchimento obrigatório</span>
-								   </div>
-                                    <div class="col-md-12 form-group">
-                                        <div class="creat_account d-flex align-items-center">
-                                            <input type="checkbox" id="f-option" name="selector">
-                                            <label for="f-option">Remember me</label>
-                                        </div>
-                                        <asp:Button runat="server" class="btn_3" Text="log in" ID="logInButton" OnClick="logInButton_Click"/>
-                                        <a class="lost_pass" href="RecoverPassword.aspx">Esqueçeu a sua Password?</a>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <!--================login_part end =================-->
+        </div>
+        <!-- End Align Area -->
     </main>
     <footer>
         <!-- Footer Start-->
@@ -225,12 +232,13 @@
                             <div class="single-footer-caption mb-30">
                                 <!-- logo -->
                                 <div class="footer-logo">
-                                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                    <a href="index.html">
+                                        <img src="assets/img/logo/logo2_footer.png" alt=""></a>
                                 </div>
                                 <div class="footer-tittle">
                                     <div class="footer-pera">
                                         <p>Asorem ipsum adipolor sdit amet, consectetur adipisicing elitcf sed do eiusmod tem.</p>
-                                </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -241,9 +249,9 @@
                                 <h4>Quick Links</h4>
                                 <ul>
                                     <li><a href="#">About</a></li>
-                                    <li><a href="#"> Offers & Discounts</a></li>
-                                    <li><a href="#"> Get Coupon</a></li>
-                                    <li><a href="#">  Contact Us</a></li>
+                                    <li><a href="#">Offers & Discounts</a></li>
+                                    <li><a href="#">Get Coupon</a></li>
+                                    <li><a href="#">Contact Us</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -255,8 +263,8 @@
                                 <ul>
                                     <li><a href="#">Woman Cloth</a></li>
                                     <li><a href="#">Fashion Accessories</a></li>
-                                    <li><a href="#"> Man Accessories</a></li>
-                                    <li><a href="#"> Rubber made Toys</a></li>
+                                    <li><a href="#">Man Accessories</a></li>
+                                    <li><a href="#">Rubber made Toys</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -279,9 +287,12 @@
                 <div class="row align-items-center">
                     <div class="col-xl-7 col-lg-8 col-md-7">
                         <div class="footer-copy-right">
-                            <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>               
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i>by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            </p>
                         </div>
                     </div>
                     <div class="col-xl-5 col-lg-4 col-md-5">
@@ -310,7 +321,7 @@
         </div>
     </div>
     <!-- Search model end -->
-    
+
     <!-- JS here -->
 
     <script src="./assets/js/vendor/modernizr-3.5.0.min.js"></script>
@@ -328,7 +339,7 @@
     <!-- One Page, Animated-HeadLin -->
     <script src="./assets/js/wow.min.js"></script>
     <script src="./assets/js/animated.headline.js"></script>
-    
+
     <!-- Scroll up, nice-select, sticky -->
     <script src="./assets/js/jquery.scrollUp.min.js"></script>
     <script src="./assets/js/jquery.nice-select.min.js"></script>
@@ -341,30 +352,30 @@
     <script src="./assets/js/jquery.validate.min.js"></script>
     <script src="./assets/js/mail-script.js"></script>
     <script src="./assets/js/jquery.ajaxchimp.min.js"></script>
-    
-    <!-- Jquery Plugins, main Jquery -->	
+
+    <!-- Jquery Plugins, main Jquery -->
     <script src="./assets/js/plugins.js"></script>
     <script src="./assets/js/main.js"></script>
-    	<script type="text/javascript">
-            document.getElementById('logInButton').addEventListener('click', function () {
 
-                var userName = document.getElementById('userName').value;
-                var Passwd = document.getElementById('passWd').value;
-                if (userName === '' || Passwd === '' ) {
-                    var spanMessage = document.getElementById('validationSpan');
-
-                    spanMessage.style.visibility = 'visible';
-                }
-
-            })
-
-        </script>
     <script type="text/javascript">
-        document.getElementById("btnClose1").addEventListener("click", function () {
-            document.getElementById("divModal").visibility = "hidden";
+        document.getElementById('btnSend').addEventListener('click', function () {
+
+            var email = document.getElementById('eMail').value;
+
+            if (email === '' ){
+                var spanMessage = document.getElementById('validationSpan');
+
+                spanMessage.style.visibility = 'visible';
+            }
+
         })
+
     </script>
 
+
+
 </body>
-    
 </html>
+
+
+
