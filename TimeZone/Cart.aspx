@@ -30,16 +30,18 @@
 <body>
   <header>
     <!-- Header Start -->
-    <div class="header-area">
-        <div class="main-header header-sticky">
-            <div class="container-fluid">
-                <div class="menu-wrapper">
-                    <!-- Logo -->
-                    <div class="logo">
-                        <a href="index.html"><img src="assets/img/logo/logo.png" alt=""></a>
-                    </div>
-                    <!-- Main-menu -->
-                     <div class="main-menu d-none d-lg-block">
+
+      <asp:Panel runat="server" ID="NotLog" Visible="true">
+          <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="index.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
                             <nav>                                                
                                 <ul id="navigation">  
                                     <li><a href="Index.aspx">Home</a></li>
@@ -53,8 +55,7 @@
                                     </li>
                                     <li><a href="#">Revendedor</a>
                                         <ul class="submenu">
-                                            <li><a href="LoginResseler.aspx">Login Revendedor</a></li>
-                                            <li><a href="Cart.aspx">Carrinho</a></li>
+                                            <li><a href="RegisterResseler.aspx">Registar</a></li>
                                           </ul>
                                     </li>
                                     <li><a href="contact.html">Contact</a></li>
@@ -74,13 +75,78 @@
                             </ul>
                         </div>
                     </div>
-                <!-- Mobile Menu -->
-                <div class="col-12">
-                    <div class="mobile_menu d-block d-lg-none"></div>
+                    <!-- Mobile Menu -->
+                    <div class="col-12">
+                        <div class="mobile_menu d-block d-lg-none"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+      </asp:Panel>
+
+
+      <asp:Panel runat="server" ID="Log" Visible ="false">
+          <div class="header-area">
+            <div class="main-header header-sticky">
+                <div class="container-fluid">
+                    <div class="menu-wrapper">
+                        <!-- Logo -->
+                        <div class="logo">
+                            <a href="IndexLogedin.aspx"><img src="assets/img/logo/logo.png" alt=""></a>
+                        </div>
+                        <!-- Main-menu -->
+                        <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul id="navigation">  
+                                    <li><a href="IndexLogedin.aspx">Home</a></li>
+                                    <li><a href="Shop.aspx">shop</a></li>
+                                    <li><a href="about.html">about</a></li>
+                                    <li class="hot"><a href="#">Latest</a>
+                                        <ul class="submenu">
+                                            <li><a href="shop.html"> Product list</a></li>
+                                            <li><a href="product_details.html"> Product Details</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="contact.html">Contact</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- Header Right -->
+                        <div class="header-right">
+                            <ul>
+                                <li>
+                                    <div class="nav-search search-switch">
+                                        <span class="flaticon-search"></span>
+                                    </div>
+                                </li>
+                                <li><a href="Cart.aspx"><span class="flaticon-shopping-cart"></span></a> </li>
+                            </ul>
+                        </div>
+                            <div class="main-menu d-none d-lg-block">
+                            <nav>                                                
+                                <ul>  
+                                    <li><asp:Label runat="server" ID="userName"></asp:Label>
+                                        <ul class="submenu">
+                                            <li><a href="ChangeUserData.aspx">Editar Dados</a></li>
+                                            <li><a href="ChangePassword.aspx">Alterar Password</a></li>
+                                            <li><a href="IndexLogedin.aspx?logout=true">Logout</a></li>
+                                            <li><a href="DeleteUser.aspx">Delete User</a></li>
+                                          </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+
+
+      </asp:Panel>
+
+
+
+
+    
     <!-- Header End -->
   </header>
   <main>
@@ -103,135 +169,63 @@
         <div class="container">
           <div class="cart_inner">
             <div class="table-responsive">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Product</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="media">
-                        <div class="d-flex">
-                          <img src="assets/img/gallery/card1.png" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
-                        </div>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$360.00</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                        <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                        <input class="input-number" type="text" value="1" min="0" max="10">
-                        <span class="input-number-increment"> <i class="ti-plus"></i></span>
-                      </div>
-                    </td>
-                    <td>
-                      <h5>$720.00</h5>
-                    </td>
-                  </tr>
+
+                
+                <asp:Repeater ID="Repeater1" runat="server">
+                    <HeaderTemplate>
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Id</th>
+                              <th scope="col">Product</th>
+                              <th scope="col">Price</th>
+                          </tr>
+                        </thead>
+                    </HeaderTemplate>
+                    <ItemTemplate>
+                 <tbody>
                   <tr>
                     <td>
                       <div class="media">
                         <div class="d-flex">
-                          <img src="assets/img/gallery/card2.png" alt="" />
-                        </div>
-                        <div class="media-body">
-                          <p>Minimalistic shop for multipurpose use</p>
+                          <span><%# Eval("id") %></span>
                         </div>
                       </div>
                     </td>
-                    <td>
-                      <h5>$360.00</h5>
-                    </td>
-                    <td>
-                      <div class="product_count">
-                          <span class="input-number-decrement"> <i class="ti-minus"></i></span>
-                          <input class="input-number" type="text" value="1" min="0" max="10">
-                          <span class="input-number-increment"> <i class="ti-plus"></i></span>
+                   <td>
+                      <div class="media">
+                        <div class="d-flex">
+                          <span><%# Eval("Description") %></span>
+                        </div>
                       </div>
-                    </td>
+                   </td>
                     <td>
-                      <h5>$720.00</h5>
-                    </td>
-                  </tr>
-                  <tr class="bottom_button">
-                    <td>
-                      <a class="btn_1" href="#">Update Cart</a>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <div class="cupon_text float-right">
-                        <a class="btn_1" href="#">Close Coupon</a>
+                      <div class="media">
+                        <div class="d-flex">
+                          <span><%# Eval("Price") %></span>
+                        </div>
                       </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <h5>Subtotal</h5>
-                    </td>
-                    <td>
-                      <h5>$2160.00</h5>
-                    </td>
-                  </tr>
-                  <tr class="shipping_area">
-                    <td></td>
-                    <td></td>
-                    <td>
-                      <h5>Shipping</h5>
-                    </td>
-                    <td>
-                      <div class="shipping_box">
-                        <ul class="list">
-                          <li>
-                            Flat Rate: $5.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li>
-                            Free Shipping
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li>
-                            Flat Rate: $10.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                          <li class="active">
-                            Local Delivery: $2.00
-                            <input type="radio" aria-label="Radio button for following text input">
-                          </li>
-                        </ul>
-                        <h6>
-                          Calculate Shipping
-                          <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </h6>
-                        <select class="shipping_select">
-                          <option value="1">Bangladesh</option>
-                          <option value="2">India</option>
-                          <option value="4">Pakistan</option>
-                        </select>
-                        <select class="shipping_select section_bg">
-                          <option value="1">Select a State</option>
-                          <option value="2">Select a State</option>
-                          <option value="4">Select a State</option>
-                        </select>
-                        <input class="post_code" type="text" placeholder="Postcode/Zipcode" />
-                        <a class="btn_1" href="#">Update Details</a>
-                      </div>
-                    </td>
+                   </td>
                   </tr>
                 </tbody>
-              </table>
+                    </ItemTemplate>
+                    <FooterTemplate>
+                        </table>
+                    </FooterTemplate>
+
+                </asp:Repeater>
+
+                 <td>
+                      <div class="media">
+                        <div class="d-flex">
+                            <p>Total</p>
+                          <span><asp:Label runat="server" ID="LblTotal"></asp:Label></span>
+                        </div>
+                      </div>
+                   </td>
+              
+                
+
               <div class="checkout_btn_inner float-right">
                 <a class="btn_1" href="#">Continue Shopping</a>
                 <a class="btn_1 checkout_btn_1" href="#">Proceed to checkout</a>

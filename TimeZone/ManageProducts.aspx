@@ -270,7 +270,7 @@
                                     <asp:Button runat="server" class="genric-btn primary" Text="Editar Produtos" ID="btn_edit" OnClick="btn_edit_Click" CausesValidation="false"/>
                                 </div>
 
-                                    <asp:Panel runat="server" ID="EditProd" Visible="true">
+                                    <asp:Panel runat="server" ID="EditProd" Visible="false">
 
 
 

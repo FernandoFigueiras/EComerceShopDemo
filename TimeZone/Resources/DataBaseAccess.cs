@@ -21,10 +21,18 @@ namespace TimeZone.Resources
         }
 
 
+        public static SqlConnection OpenTempData()
+        {
+            SqlConnection connTemp = new SqlConnection(ConfigurationManager.ConnectionStrings["clockShopConnectionString"].ConnectionString);
+            connTemp.Open();
+            return connTemp;
+        }
+
+
         public static bool RegisterUser(string fName, string lName, string email, string password, string role, string registerNumb)
         {
             var conn = OpenConnection();
-             SqlCommand command = new SqlCommand();
+            SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "register_new_user";
             
@@ -142,6 +150,7 @@ namespace TimeZone.Resources
 
         }
 
+
         public static bool ChangeUserData(string firstName, string lastName, string email)
         {
             var conn = OpenConnection();
@@ -223,14 +232,15 @@ namespace TimeZone.Resources
         }
 
 
-        public static void CreateTempTable()
+        public static void CreateTempTable(SqlConnection sqlConnection)
         {
-            SqlConnection connTemp = new SqlConnection(ConfigurationManager.ConnectionStrings["clockShopConnectionString"].ConnectionString);
-            connTemp.Open();
+           
+            var conntemp = sqlConnection;
+            
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.StoredProcedure;
             command.CommandText = "create_temp_table";
-            command.Connection = connTemp;
+            command.Connection = conntemp;
 
             command.ExecuteNonQuery();
         } 
@@ -238,11 +248,93 @@ namespace TimeZone.Resources
 
 
 
-        public static void UpdateCartTable()
+        public static bool UpdateCartTableTemp(int productId, string description, decimal price, SqlConnection conn)
         {
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "update_cart_table";
+
+            command.Connection = conn;
+
+
+            command.Parameters.AddWithValue("@product_id", productId);
+            command.Parameters.AddWithValue("@product_description", description);
+            command.Parameters.AddWithValue("@product_price", price);
+
+
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+
+            command.Parameters.Add(success);
+
+            command.ExecuteNonQuery();
+            int response = Convert.ToInt32(command.Parameters["@success"].Value);
+
+            if (response == 0)
+            {
+                return false;
+            }
+            return true;
 
         }
 
+
+
+        public static void UpdateCartUser(User user, int productId, string description, decimal price)
+        {
+            var conn = OpenConnection();
+
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "update_cart";
+
+            command.Connection = conn;
+
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@product_id", productId);
+            command.Parameters.AddWithValue("@product_description", description);
+            command.Parameters.AddWithValue("@product_price", price);
+            command.Parameters.AddWithValue("@user_shop_id", user.Id);
+
+
+            command.ExecuteNonQuery();
+
+        }
+
+
+
+        public static void UpdateCart(List<Product> products, User user)
+        {
+            var conn = OpenConnection();
+
+
+            var tempConn = OpenTempData();
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "update_cart";
+
+            command.Connection = conn;
+
+            foreach (var item in products)
+            {
+                command.Parameters.Clear();
+                command.Parameters.AddWithValue("@product_id", item.Id);
+                command.Parameters.AddWithValue("@product_description", item.Description);
+                command.Parameters.AddWithValue("@product_price", item.Price);
+                command.Parameters.AddWithValue("@user_shop_id", user.Id);
+                command.ExecuteNonQuery();
+            }
+
+            conn.Close();
+            tempConn.Close();
+
+        }
 
 
         public static List<User>  GetActiveResselers()
@@ -554,6 +646,176 @@ namespace TimeZone.Resources
                 reader.Close();
 
             }
+        }
+
+
+
+        public static Product GtProductByID(int id)
+        {
+            
+            var conn = OpenConnection();
+
+            string query = $"SELECT * FROM products WHERE id = {id}";
+
+            SqlCommand command = new SqlCommand(query, conn);
+
+            SqlDataReader reader = command.ExecuteReader();
+
+            Product product = new Product();
+
+            
+            while (reader.Read())
+            {
+                
+
+                product.Id = reader.GetInt32(0);
+                product.Description = reader.GetString(1);
+                product.Price = reader.GetDecimal(2);
+
+            }
+
+            reader.Close();
+            conn.Close();
+            return product;
+
+            
+        }
+
+
+
+        public static List<Product> GetTempCart(SqlConnection conn)
+        {
+
+            string query = $"SELECT * FROM ##cart_product";
+
+            SqlCommand command = new SqlCommand(query, conn);
+            List<Product> products = new List<Product>();
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+
+
+
+                while (reader.Read())
+                {
+                    Product product = new Product();
+
+                    product.Id = Convert.ToInt32(reader["id"]);
+                    product.Description = reader["product_description"].ToString(); 
+                    product.Price = Convert.ToDecimal(reader["product_price"]);
+
+
+                    products.Add(product);
+
+
+                    
+                }
+                reader.Close();
+                return products;
+
+               
+            }
+            catch (Exception ex)
+            {
+                return products;
+            }
+
+            
+        }
+
+
+
+        public static List<Product> GetUserCart(SqlConnection connTemp, int id)
+        {
+            var conn = OpenConnection();
+
+            var tempCon = connTemp;
+
+            
+
+            string query = $"SELECT * FROM user_cart WHERE user_shop_id = {id}";
+
+            SqlCommand command = new SqlCommand(query, conn);
+            List<Product> products = new List<Product>();
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+
+
+
+                while (reader.Read())
+                {
+                    Product product = new Product();
+
+                    product.Id = Convert.ToInt32(reader["id"]);
+                    product.Description = reader["product_description"].ToString();
+                    product.Price = Convert.ToDecimal(reader["product_price"]);
+
+
+                    products.Add(product);
+
+
+
+                }
+                reader.Close();
+
+                if (tempCon!=null)
+                {
+                    tempCon.Close();
+                }
+               
+                return products;
+                
+
+            }
+            catch (Exception ex)
+            {
+                return products;
+            }
+        }
+
+
+       public static List<Product> GetUserCartLogin(int id)
+        {
+            var conn = OpenConnection();
+
+
+
+
+            string query = $"SELECT * FROM user_cart WHERE user_shop_id = {id}";
+
+            SqlCommand command = new SqlCommand(query, conn);
+            List<Product> products = new List<Product>();
+            try
+            {
+                SqlDataReader reader = command.ExecuteReader();
+
+
+
+                while (reader.Read())
+                {
+                    Product product = new Product();
+
+                    product.Id = Convert.ToInt32(reader["id"]);
+                    product.Description = reader["product_description"].ToString();
+                    product.Price = Convert.ToDecimal(reader["product_price"]);
+
+
+                    products.Add(product);
+
+
+
+                }
+                reader.Close();
+                return products;
+
+
+            }
+            catch (Exception ex)
+            {
+                return products;
+            }
+
         }
     }
 }

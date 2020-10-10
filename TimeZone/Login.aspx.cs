@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -36,6 +37,18 @@ namespace TimeZone
                 return;
             }
 
+            var conn = (SqlConnection)Session["conn"];
+
+            var cartList = DataBaseAccess.GetTempCart(conn);
+
+
+            if (cartList != null)
+            {
+                DataBaseAccess.UpdateCart(cartList, user);
+            }
+
+
+
             user.IsLogedIn = true;
 
 
@@ -49,6 +62,7 @@ namespace TimeZone
             {
                 Response.Redirect("IndexLogedInAdmin.aspx");
             }
+
 
             
 
