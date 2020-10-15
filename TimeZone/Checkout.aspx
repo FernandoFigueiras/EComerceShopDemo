@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Cart.aspx.cs" Inherits="TimeZone.Cart" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Checkout.aspx.cs" Inherits="TimeZone.Checkout" %>
+
 
 <!DOCTYPE html>
 
@@ -25,6 +26,53 @@
       <link rel="stylesheet" href="assets/css/slick.css">
       <link rel="stylesheet" href="assets/css/nice-select.css">
       <link rel="stylesheet" href="assets/css/style.css">
+
+ <style>    
+    .modalDialog {
+        position: fixed;
+        font-family: Arial, Helvetica, sans-serif;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(0,0,0,0.8);
+        z-index: 99999;
+        -webkit-transition: opacity 400ms ease-in;
+        -moz-transition: opacity 400ms ease-in;
+        transition: opacity 400ms ease-in;
+    }
+    .modalDialog > div {
+        width: 400px;
+        position: relative;
+        margin: 10% auto;
+        margin-left:40%;
+        padding: 5px 20px 13px 20px;
+        border-radius: 10px;
+        background: #fff;
+        background: -moz-linear-gradient(#fff, #999);
+        background: -webkit-linear-gradient(#fff, #999);
+        background: -o-linear-gradient(#fff, #999);
+    }
+    .close {
+        background: #606061;
+        color: #FFFFFF;
+        line-height: 25px;
+        position: absolute;
+        right: -12px;
+        text-align: center;
+        top: -10px;
+        width: 24px;
+        text-decoration: none;
+        font-weight: bold;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 12px;
+        -moz-box-shadow: 1px 1px 3px #000;
+        -webkit-box-shadow: 1px 1px 3px #000;
+        box-shadow: 1px 1px 3px #000;
+    }
+    .close:hover { background: #00d9ff; }
+</style> 
 </head>
 
 <body>
@@ -170,9 +218,35 @@
         <div class="container">
           <div class="cart_inner">
             <div class="table-responsive">
-
+                 <div id="divModal" runat="server" class="modalDialog" visible="false">
+                                    <div>
+                                        <h2>Sem sessao iniciada</h2>
+                                        <p>Faca login ou registe-se para terminar a sua conta</p>
+                                        <br />
+                                        <asp:Button runat="server" ID="btnClose" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="btnClose_Click" />
+                                    </div>
+                                </div>
                 
-                <asp:Repeater ID="Repeater1" runat="server" OnItemCommand="Repeater1_ItemCommand">
+                 <div id="divModal2" runat="server" class="modalDialog" visible="false">
+                                    <div>
+                                        <h2>Obrigado pela sua compra</h2>
+                                        <p>Consulte o seu email</p>
+                                        <br />
+                                        <asp:Button runat="server" ID="Button1" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="Button1_Click" />
+                                    </div>
+                                </div>
+
+
+                <div id="divModal3" runat="server" class="modalDialog" visible="false">
+                                    <div>
+                                        <h2>Registo novo revendedor</h2>
+                                        <p>O seu registo como novo revendedor nao esta activo</p>
+                                        <br />
+                                        <asp:Button runat="server" ID="Button2" Text="Close" data-toggle="modal" OnClientClick="return" OnClick="Button2_Click"  />
+                                    </div>
+                                </div>
+
+                <asp:Repeater ID="Repeater1" runat="server">
                     <HeaderTemplate>
                         <table class="table">
                           <thead>
@@ -207,9 +281,6 @@
                         </div>
                       </div>
                    </td>
-                    <td>
-                        <asp:ImageButton runat="server" ID="btnDel" ImageUrl="~/Images/grunge-no-icon.png"  CommandName="btnDel" CommandArgument='<%# Eval("Id") %>'/>
-                    </td>
                   </tr>
                 </tbody>
                     </ItemTemplate>
@@ -231,8 +302,8 @@
                 
 
               <div class="checkout_btn_inner float-right">
-                <a class="btn_1" href="Shop.aspx">Continuar a comprar</a>
-                <a class="btn_1 checkout_btn_1" href="Checkout.aspx">Fazer  checkout</a>
+                <a class="btn_1" href="Cart.aspx">voltar</a>
+                <asp:Button runat="server"  class="btn_1 checkout_btn_1" OnClick="Unnamed1_Click" text="Concluir"/>
               </div>
             </div>
           </div>
@@ -373,3 +444,4 @@
 
 </body>
 </html>
+

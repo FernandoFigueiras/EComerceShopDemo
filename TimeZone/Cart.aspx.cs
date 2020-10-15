@@ -18,64 +18,67 @@ namespace TimeZone
 
 
             var tempList = (List<Product>)Session["tempList"];
-
-            if (user == null)
+            if (!this.IsPostBack)
             {
-                if (!this.IsCallback)
+                if (user == null)
                 {
-                    LoadCartTemp();
-                }
-            }
-            else
-            {
-
-                if (tempList!=null)
-                {
-                    if (!this.IsCallback)
+                    if (!this.IsPostBack)
                     {
-                        LoadUserCart();
+                        LoadCartTemp();
                     }
-                    
                 }
                 else
                 {
-                    GetLogedInCart(user.Id);
+
+                    if (tempList != null)
+                    {
+                        if (!this.IsPostBack)
+                        {
+                            LoadUserCart();
+                        }
+
+                    }
+                    else
+                    {
+                        GetLogedInCart(user.Id);
+                    }
+                    NotLog.Visible = false;
+                    Log.Visible = true;
+
+                    var response = Request.QueryString["logout"];
+
+                    if (response != null && response == "true")
+                    {
+                        user.IsLogedIn = false;
+                        Response.Redirect("Login.aspx");
+                    }
+
+
+                    if (user == null)
+                    {
+                        Response.Redirect("Index.aspx");
+                    }
+
+                    if (user.IsActive == 0)
+                    {
+                        Response.Redirect("Index.aspx");
+                    }
+
+                    if (user.Role == "Admin")
+                    {
+                        Response.Redirect("IndexLogedInAdmin.aspx");
+                    }
+
+
+                    if (!user.IsLogedIn)
+                    {
+                        Response.Redirect("Index.aspx");
+                    }
+
+
+                    userName.Text = user.Email;
                 }
-                NotLog.Visible = false;
-                Log.Visible = true;
-
-                var response = Request.QueryString["logout"];
-
-                if (response != null && response == "true")
-                {
-                    user.IsLogedIn = false;
-                    Response.Redirect("Login.aspx");
-                }
-
-
-                if (user == null)
-                {
-                    Response.Redirect("Index.aspx");
-                }
-
-                if (user.IsActive == 0)
-                {
-                    Response.Redirect("Index.aspx");
-                }
-
-                if (user.Role == "Admin")
-                {
-                    Response.Redirect("IndexLogedInAdmin.aspx");
-                }
-
-
-                if (!user.IsLogedIn)
-                {
-                    Response.Redirect("Index.aspx");
-                }
-
-
-                userName.Text = user.Email;
+            
             }
 
             
@@ -194,5 +197,62 @@ namespace TimeZone
             LblTotal.Text = count.ToString() + "Euros";
         }
 
+        protected void Repeater1_ItemCommand(object source, RepeaterCommandEventArgs e)
+        {
+            var tempList = (List<Product>)Session["tempList"];
+
+            var user = (User)Session["user"];
+
+            if (user == null)
+            {
+                var conn = (SqlConnection)Session["conn"];
+
+                if (e.CommandName.Equals("btnDel"))
+                {
+
+
+                    var product = Convert.ToInt32(((ImageButton)e.Item.FindControl("btnDel")).CommandArgument);
+
+
+                    var response = DataBaseAccess.DeleteTempCartProduct(product, conn);
+
+
+                    if (response)
+                    {
+
+                        var itemToRemove = tempList.SingleOrDefault(r => r.Id == product);
+                        if (itemToRemove != null)
+                            tempList.Remove(itemToRemove);
+                        Session["tempList"] = tempList;
+
+                        LoadCartTemp();
+                    }
+
+                    
+                }
+                
+            }
+            else
+            {
+
+                var conn = new SqlConnection();
+
+                if (e.CommandName.Equals("btnDel"))
+                {
+                    var product = Convert.ToInt32(((ImageButton)e.Item.FindControl("btnDel")).CommandArgument);
+
+
+                    var response = DataBaseAccess.DeleteUserCartProd(product);
+
+                    GetLogedInCart(user.Id);
+                }
+
+
+            }
+
+
+
+            
+        }
     }
 }

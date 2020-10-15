@@ -14,19 +14,32 @@ namespace TimeZone
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           
 
             if (!this.IsPostBack)
             {
 
                 LoadShop();
+
+                var orderType = Request.QueryString["order"];
+
+                if (orderType == "orderPrice")
+                {
+                    LoadShopByPrice();
+                }
+                if (orderType == "orderName")
+                {
+                    LoadShopByName();
+                }
             }
+
+            
 
             var user = (User)Session["user"];
 
             var conn = (SqlConnection)Session["conn"];
 
-            if (user!= null)
+            if (user!= null && user.IsLogedIn == true)
             {
                 NotLog.Visible = false;
                 Log.Visible = true;
@@ -67,6 +80,24 @@ namespace TimeZone
 
 
 
+        }
+
+        private void LoadShopByName()
+        {
+            var list = DataBaseAccess.GetProducts();
+            list = list.OrderBy(l => l.Description).ToList();
+
+            Repeater1.DataSource = list;
+            Repeater1.DataBind();
+        }
+
+        private void LoadShopByPrice()
+        {
+            var list = DataBaseAccess.GetProducts();
+            list = list.OrderBy(l => l.Price).ToList();
+
+            Repeater1.DataSource = list;
+            Repeater1.DataBind();
         }
 
         private void LoadShop()

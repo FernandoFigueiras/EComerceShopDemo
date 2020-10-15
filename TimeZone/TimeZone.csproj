@@ -284,6 +284,7 @@
     <Content Include="Cart.aspx" />
     <Content Include="ChangePassword.aspx" />
     <Content Include="ChangeUserData.aspx" />
+    <Content Include="Checkout.aspx" />
     <Content Include="ConfirmRecoverPassword.aspx" />
     <Content Include="DeleteUser.aspx" />
     <Content Include="Doc\css\font-awesome.min.css" />
@@ -379,6 +380,13 @@
     <Compile Include="ChangeUserData.aspx.designer.cs">
       <DependentUpon>ChangeUserData.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Checkout.aspx.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Checkout.aspx.designer.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ConfirmRecoverPassword.aspx.cs">
       <DependentUpon>ConfirmRecoverPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -389,6 +397,7 @@
     <Compile Include="Data\Cart.cs" />
     <Compile Include="Data\Customer.cs" />
     <Compile Include="Data\Product.cs" />
+    <Compile Include="Data\Sells.cs" />
     <Compile Include="Data\Stock.cs" />
     <Compile Include="DeleteUser.aspx.cs">
       <DependentUpon>DeleteUser.aspx</DependentUpon>

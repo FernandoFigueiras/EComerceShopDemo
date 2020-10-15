@@ -92,6 +92,17 @@ namespace TimeZone.Resources
                     user.Email = reader["email"].ToString();
                     user.Role = reader["user_role"].ToString();
                     user.IsActive = Convert.ToInt32(reader["is_active"]);
+                    if (Convert.ToInt32(reader["is_resseler"]) == 1)
+                    {
+                        user.IsResseler = true;
+                    }
+                    else if (Convert.ToInt32(reader["is_resseler"]) == 0)
+                    {
+                        user.IsResseler = false;
+                    }
+                        
+                        
+                         
                 }
 
                 return user;
@@ -724,6 +735,37 @@ namespace TimeZone.Resources
         }
 
 
+        public static bool DeleteTempCartProduct(int productId, SqlConnection conn)
+        {
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "delete_temp_cart";
+
+            command.Connection = conn;
+
+
+            command.Parameters.AddWithValue("@product_id", productId);
+
+
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+
+            command.Parameters.Add(success);
+
+            command.ExecuteNonQuery();
+            int response = Convert.ToInt32(command.Parameters["@success"].Value);
+
+            if (response == 0)
+            {
+                return false;
+            }
+            return true;
+
+        }
+
 
         public static List<Product> GetUserCart(SqlConnection connTemp, int id)
         {
@@ -775,6 +817,42 @@ namespace TimeZone.Resources
         }
 
 
+        public static bool DeleteUserCartProd(int productId)
+        {
+            var conn = OpenConnection();
+
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "delete_user_cart_product";
+
+            command.Connection = conn;
+
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@product_id", productId);
+
+
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+
+            command.Parameters.Add(success);
+
+
+            command.ExecuteNonQuery();
+            int response = Convert.ToInt32(command.Parameters["@success"].Value);
+            conn.Close();
+            if (response == 0)
+            {
+                return false;
+            }
+            return true;
+
+           
+        }
+
        public static List<Product> GetUserCartLogin(int id)
         {
             var conn = OpenConnection();
@@ -816,6 +894,127 @@ namespace TimeZone.Resources
                 return products;
             }
 
+        }
+
+
+
+        public static bool FinishSell(int userId)
+        {
+            var conn = OpenConnection();
+
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "finish_sell";
+
+            command.Connection = conn;
+
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@id_user", userId);
+
+            SqlParameter success = new SqlParameter();
+            success.ParameterName = "@success";
+            success.Direction = ParameterDirection.Output;
+            success.SqlDbType = SqlDbType.Int;
+            success.Size = 1;
+
+            command.Parameters.Add(success);
+
+            try
+            {
+                command.ExecuteNonQuery();
+                int response = Convert.ToInt32(command.Parameters["@success"].Value);
+                conn.Close();
+
+                if (response == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+          
+        }
+
+
+
+        public static void AddSells(string prod, string user)
+        {
+            var conn = OpenConnection();
+
+
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "finish_sell_admin";
+
+            command.Connection = conn;
+
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@product_description", prod);
+            command.Parameters.AddWithValue("@user_email", user);
+            
+
+
+
+            try
+            {
+                command.ExecuteNonQuery();
+                conn.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+
+        }
+
+
+
+
+        public static List<Sells> GetManageOrders()
+        {
+
+            string query = $"SELECT * FROM sells";
+
+            var conn = OpenConnection();
+            SqlCommand command = new SqlCommand(query, conn);
+
+            var list = new List<Sells>();
+
+            SqlDataReader reader = command.ExecuteReader();
+
+
+
+            try
+            {
+                while (reader.Read())
+                {
+                    var sells = new Sells();
+
+                    sells.Id = Convert.ToInt32(reader["id"]);
+                    sells.ProductDiscription = reader["product_discription"].ToString();
+                    sells.UserEmail = reader["user_email"].ToString();
+
+
+                    list.Add(sells);
+                }
+
+                return list;
+            }
+            finally
+            {
+                reader.Close();
+
+            }
         }
     }
 }
